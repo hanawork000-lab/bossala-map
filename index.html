@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دليلك لفهم نظام البكالوريا المصرية</title>
+
+  <!-- Google Fonts: Cairo & Tajawal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- React 18 & Babel Standalone -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    :root {
+      --bg-cream: #faf8f3;
+      --bg-surface: #ffffff;
+      --navy-dark: #0f294a;
+      --navy-mid: #1a3f6e;
+      --turquoise: #0d9488;
+      --turquoise-light: #14b8a6;
+      --soft-blue: #38bdf8;
+      --soft-blue-bg: #e0f2fe;
+      --mint-bg: #ccfbf1;
+      --orange-accent: #f97316;
+      --orange-bg: #fff7ed;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --border-soft: #e6e2d8;
+      --shadow-sm: 0 4px 14px rgba(15, 41, 74, 0.06);
+      --shadow-md: 0 14px 36px rgba(15, 41, 74, 0.09);
+      --shadow-lg: 0 24px 60px rgba(15, 41, 74, 0.22);
+      --radius-lg: 26px;
+      --radius-md: 16px;
+      --transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Cairo", "Tajawal", sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 10% 12%, rgba(56, 189, 248, 0.11) 0%, transparent 32%),
+        radial-gradient(circle at 90% 84%, rgba(13, 148, 136, 0.09) 0%, transparent 35%),
+        radial-gradient(circle at 50% 45%, rgba(249, 115, 22, 0.04) 0%, transparent 40%);
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .page-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 34px 20px 44px;
+    }
+
+    /* ================= HEADER ================= */
+    .hero-header {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 28px;
+      animation: fadeDown 0.55s ease-out;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      color: var(--navy-dark);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-tag-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--orange-accent);
+      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.18);
+    }
+
+    .hero-title {
+      font-size: clamp(1.85rem, 4vw, 2.7rem);
+      font-weight: 800;
+      color: var(--navy-dark);
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .instruction-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--soft-blue-bg), #f0fdfa);
+      color: var(--navy-dark);
+      padding: 9px 20px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border: 1px solid rgba(13, 148, 136, 0.22);
+    }
+
+    .instruction-chip svg {
+      color: var(--orange-accent);
+      flex-shrink: 0;
+    }
+
+    /* ================= MAIN MAP CONTAINER ================= */
+    .map-stage {
+      position: relative;
+      background: linear-gradient(160deg, #ffffff 0%, #f7fbff 55%, #f3fbf9 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-md);
+      padding: 24px;
+      overflow: visible;
+    }
+
+    .map-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .map-legend {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .progress-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+    }
+
+    /* ================= DESKTOP ILLUSTRATED JOURNEY MAP ================= */
+    .desktop-map-canvas {
+      position: relative;
+      width: 100%;
+      height: 620px;
+      border-radius: 22px;
+      background-color: #fbfdff;
+      background-image: radial-gradient(#d4dce6 1.2px, transparent 1.2px);
+      background-size: 26px 26px;
+      border: 1px solid rgba(15, 41, 74, 0.08);
+    }
+
+    .map-bg-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .journey-dash {
+      stroke-dasharray: 10 10;
+      animation: flowDash 30s linear infinite;
+    }
+
+    @keyframes flowDash {
+      to {
+        stroke-dashoffset: -420;
+      }
+    }
+
+    /* Subtle Center Theme Badge */
+    .map-center-emblem {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(4px);
+      border: 1px dashed rgba(13, 148, 136, 0.35);
+      border-radius: 999px;
+      padding: 12px 22px;
+      box-shadow: 0 8px 24px rgba(15, 41, 74, 0.05);
+      z-index: 2;
+    }
+
+    .map-center-emblem strong {
+      font-size: 0.86rem;
+      color: var(--navy-dark);
+      font-weight: 800;
+    }
+
+    .map-center-emblem span {
+      font-size: 0.74rem;
+      color: var(--turquoise);
+      font-weight: 700;
+    }
+
+    /* ================= HOTSPOT MARKERS ================= */
+    .hotspot-anchor {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    .hotspot-anchor:hover,
+    .hotspot-anchor:focus-within,
+    .hotspot-anchor.is-active {
+      z-index: 40;
+    }
+
+    .hotspot-trigger {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 16px 9px 12px;
+      background: #ffffff;
+      border: 2px solid var(--navy-dark);
+      border-radius: 999px;
+      box-shadow: 0 10px 26px rgba(15, 41, 74, 0.12);
+      transition: var(--transition);
+      color: var(--navy-dark);
+      min-width: 245px;
+      max-width: 280px;
+    }
+
+    .hotspot-trigger::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 999px;
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: var(--transition);
+      pointer-events: none;
+    }
+
+    .hotspot-anchor:hover .hotspot-trigger,
+    .hotspot-trigger:focus-visible,
+    .hotspot-anchor.is-active .hotspot-trigger {
+      transform: scale(1.06) translateY(-3px);
+      border-color: var(--orange-accent);
+      box-shadow:
+        0 16px 34px rgba(15, 41, 74, 0.16),
+        0 0 0 6px rgba(249, 115, 22, 0.16);
+    }
+
+    .hotspot-anchor:hover .hotspot-trigger::after,
+    .hotspot-anchor.is-active .hotspot-trigger::after {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+
+    .hotspot-anchor.is-visited .hotspot-trigger {
+      border-color: var(--turquoise);
+    }
+
+    .marker-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy-mid));
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .hotspot-anchor:hover .marker-circle,
+    .hotspot-anchor.is-active .marker-circle {
+      background: linear-gradient(135deg, var(--orange-accent), #ea580c);
+    }
+
+    .hotspot-anchor.is-visited:not(:hover):not(.is-active) .marker-circle {
+      background: linear-gradient(135deg, var(--turquoise), #0f766e);
+    }
+
+    .marker-num {
+      font-size: 0.65rem;
+      font-weight: 800;
+      line-height: 1;
+      opacity: 0.92;
+      margin-bottom: 2px;
+    }
+
+    .marker-pulse {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid var(--orange-accent);
+      opacity: 0;
+      animation: softPulse 2.8s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes softPulse {
+      0% { transform: scale(0.95); opacity: 0.55; }
+      75% { transform: scale(1.36); opacity: 0; }
+      100% { transform: scale(1.36); opacity: 0; }
+    }
+
+    .marker-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: right;
+    }
+
+    .marker-step-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--turquoise);
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+
+    .marker-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      line-height: 1.3;
+    }
+
+    /* ================= FLOATING HOVER PREVIEW CARD ================= */
+    .hover-preview-card {
+      position: absolute;
+      width: 290px;
+      background: var(--navy-dark);
+      color: #ffffff;
+      border-radius: 18px;
+      padding: 15px 17px;
+      box-shadow: 0 18px 42px rgba(15, 41, 74, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+      text-align: right;
+      z-index: 50;
+    }
+
+    .hover-preview-card.place-below {
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+    }
+
+    .hover-preview-card.place-above {
+      bottom: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+    }
+
+    .hotspot-anchor:hover .hover-preview-card,
+    .hotspot-anchor:focus-within .hover-preview-card {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hover-preview-card::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px;
+      border-style: solid;
+    }
+
+    .hover-preview-card.place-below::after {
+      bottom: 100%;
+      border-color: transparent transparent var(--navy-dark) transparent;
+    }
+
+    .hover-preview-card.place-above::after {
+      top: 100%;
+      border-color: var(--navy-dark) transparent transparent transparent;
+    }
+
+    .preview-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--soft-blue);
+      margin-bottom: 5px;
+    }
+
+    .preview-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .preview-desc {
+      font-size: 0.83rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 9px;
+    }
+
+    .preview-cta {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #fdba74;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ================= MOBILE LIST VIEW ================= */
+    .mobile-map-list {
+      display: none;
+    }
+
+    /* ================= SIDE / FLOATING INFORMATION PANEL ================= */
+    .panel-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 41, 74, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      justify-content: flex-end;
+      padding: 16px;
+      animation: fadeIn 0.22s ease;
+    }
+
+    .info-panel {
+      width: min(670px, 100%);
+      height: 100%;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      animation: panelSlideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes panelSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .panel-header {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, #173d6c 100%);
+      color: #ffffff;
+      padding: 22px 26px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .panel-header-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .panel-icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.38);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #ffffff;
+    }
+
+    .panel-icon-box span {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--soft-blue);
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .panel-step-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--soft-blue);
+      margin-bottom: 2px;
+    }
+
+    .panel-title {
+      font-size: clamp(1.16rem, 2.5vw, 1.44rem);
+      font-weight: 800;
+      line-height: 1.35;
+      color: #ffffff;
+    }
+
+    .panel-close-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .panel-close-btn:hover {
+      background: var(--orange-accent);
+      transform: rotate(90deg);
+    }
+
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 26px;
+    }
+
+    /* ================= CONTENT BLOCKS INSIDE PANEL ================= */
+    .question-box {
+      background: linear-gradient(135deg, var(--soft-blue-bg) 0%, #f0fdfa 100%);
+      border-right: 4px solid var(--turquoise);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 1.04rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      margin-bottom: 16px;
+    }
+
+    .body-text {
+      font-size: 0.96rem;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      line-height: 1.85;
+    }
+
+    .block-heading {
+      font-size: 1.03rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      margin: 22px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .block-heading::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange-accent);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .bullet-cards {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .bullet-cards li {
+      position: relative;
+      padding: 10px 34px 10px 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    .bullet-cards li::before {
+      content: "✓";
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      color: var(--turquoise);
+      font-weight: 800;
+    }
+
+    .highlight-orange {
+      background: var(--orange-bg);
+      border: 1px solid rgba(249, 115, 22, 0.28);
+      border-right: 4px solid var(--orange-accent);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    .highlight-title-orange {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: #c2410c;
+      margin-bottom: 6px;
+    }
+
+    .highlight-orange p {
+      font-size: 0.94rem;
+      color: #431407;
+      line-height: 1.75;
+    }
+
+    .highlight-teal {
+      background: #f0fdfa;
+      border: 1px solid rgba(13, 148, 136, 0.25);
+      border-right: 4px solid var(--turquoise);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    .highlight-title-teal {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: #0f766e;
+      margin-bottom: 6px;
+    }
+
+    .highlight-teal p {
+      font-size: 0.94rem;
+      color: #134e4a;
+      line-height: 1.75;
+    }
+
+    /* Hotspot 02: 4 Visual Pathway Cards */
+    .pathways-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .pathway-card {
+      background: #f8fbff;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .pathway-card:hover {
+      border-color: var(--soft-blue);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pathway-icon-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .pathway-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      margin-bottom: 6px;
+    }
+
+    .pathway-desc {
+      font-size: 0.89rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 10px;
+      flex: 1;
+    }
+
+    .pathway-spec {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #0f766e;
+      background: rgba(13, 148, 136, 0.1);
+      padding: 8px 10px;
+      border-radius: 10px;
+      line-height: 1.55;
+    }
+
+    /* Hotspot 03 & 04: Stage Cards */
+    .stage-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .stage-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--soft-blue-bg);
+    }
+
+    .stage-chip {
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: var(--soft-blue-bg);
+      color: var(--navy-dark);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .plain-bullets {
+      list-style: disc;
+      padding-right: 22px;
+      margin: 8px 0 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.93rem;
+    }
+
+    .exam-opportunities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .exam-opp-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+    }
+
+    .exam-opp-box.is-free {
+      border-top: 3px solid var(--turquoise);
+    }
+
+    .exam-opp-box.is-paid {
+      border-top: 3px solid var(--orange-accent);
+    }
+
+    /* Hotspot 05: Comparison Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 14px 0 20px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+      text-align: right;
+      font-size: 0.9rem;
+    }
+
+    .comp-table th {
+      background: var(--navy-dark);
+      color: #ffffff;
+      padding: 13px 14px;
+      font-weight: 800;
+    }
+
+    .comp-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+      line-height: 1.65;
+    }
+
+    .comp-table tbody tr:nth-child(even) {
+      background: #f8fbff;
+    }
+
+    .comp-table td:first-child {
+      font-weight: 800;
+      color: var(--navy-dark);
+      background: rgba(224, 242, 254, 0.35);
+      width: 24%;
+    }
+
+    .numbered-features {
+      list-style: none;
+      counter-reset: item;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .numbered-features li {
+      counter-increment: item;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.93rem;
+    }
+
+    .numbered-features li::before {
+      content: counter(item);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: var(--turquoise);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Hotspot 06: Interactive FAQ Accordion */
+    .faq-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 14px 0 20px;
+    }
+
+    .faq-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #ffffff;
+      transition: var(--transition);
+    }
+
+    .faq-card.is-open {
+      border-color: var(--turquoise);
+      box-shadow: 0 6px 18px rgba(13, 148, 136, 0.1);
+    }
+
+    .faq-btn {
+      width: 100%;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-align: right;
+      font-size: 0.94rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      background: #f8fafc;
+    }
+
+    .faq-card.is-open .faq-btn {
+      background: #f0fdfa;
+      color: #0f766e;
+    }
+
+    .faq-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.28s ease;
+    }
+
+    .faq-card.is-open .faq-arrow {
+      transform: rotate(180deg);
+      background: var(--turquoise);
+      color: #ffffff;
+      border-color: var(--turquoise);
+    }
+
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 16px;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      transition: max-height 0.32s ease, padding 0.32s ease;
+    }
+
+    .faq-card.is-open .faq-content {
+      max-height: 360px;
+      padding: 12px 16px 16px;
+    }
+
+    /* Panel Footer Navigation */
+    .panel-footer {
+      padding: 16px 24px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      background: #ffffff;
+      color: var(--navy-dark);
+      border: 1px solid #cbd5e1;
+      transition: var(--transition);
+    }
+
+    .panel-nav-btn:hover:not(:disabled) {
+      background: var(--navy-dark);
+      color: #ffffff;
+      border-color: var(--navy-dark);
+    }
+
+    .panel-nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .panel-step-text {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* ================= PAGE FOOTER ================= */
+    .site-footer {
+      margin-top: 28px;
+      text-align: center;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .site-footer p {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 960px) {
+      .hotspot-trigger {
+        min-width: 210px;
+        max-width: 235px;
+        padding: 7px 12px 7px 9px;
+      }
+      .marker-title {
+        font-size: 0.82rem;
+      }
+      .map-center-emblem {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-shell {
+        padding: 22px 14px 34px;
+      }
+
+      .map-stage {
+        padding: 16px;
+      }
+
+      .desktop-map-canvas {
+        display: none;
+      }
+
+      .mobile-map-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        position: relative;
+        padding-right: 16px;
+      }
+
+      .mobile-map-list::before {
+        content: "";
+        position: absolute;
+        top: 28px;
+        bottom: 28px;
+        right: 24px;
+        width: 3px;
+        background: repeating-linear-gradient(
+          to bottom,
+          var(--turquoise) 0,
+          var(--turquoise) 8px,
+          transparent 8px,
+          transparent 16px
+        );
+      }
+
+      .mobile-hotspot-btn {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        width: 100%;
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 15px;
+        text-align: right;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+      }
+
+      .mobile-hotspot-btn:active {
+        transform: scale(0.98);
+        border-color: var(--orange-accent);
+      }
+
+      .mobile-hotspot-btn.is-visited {
+        border-color: rgba(13, 148, 136, 0.5);
+      }
+
+      .mobile-node-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--navy-dark), var(--navy-mid));
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      .mobile-hotspot-btn.is-visited .mobile-node-circle {
+        background: linear-gradient(135deg, var(--turquoise), #0f766e);
+      }
+
+      .mobile-node-title {
+        font-size: 0.98rem;
+        font-weight: 800;
+        color: var(--navy-dark);
+        margin-bottom: 4px;
+      }
+
+      .mobile-node-desc {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.55;
+        margin-bottom: 6px;
+      }
+
+      .mobile-node-cta {
+        font-size: 0.8rem;
+        font-weight: 800;
+        color: var(--orange-accent);
+      }
+
+      .panel-backdrop {
+        padding: 10px;
+      }
+
+      .panel-header,
+      .panel-body {
+        padding: 18px;
+      }
+
+      .pathways-grid,
+      .exam-opportunities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-footer {
+        padding: 14px 16px;
+        flex-wrap: wrap;
+      }
+
+      .panel-step-text {
+        order: -1;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    /* ================= SVG ICONS ================= */
+    const Icons = {
+      gradCap: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+          <path d="M6 12v5c3 3 9 3 12 0v-5" />
+        </svg>
+      ),
+      pathways: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 3v6M12 15v6M3 12h6M15 12h6" />
+        </svg>
+      ),
+      books: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+          <path d="M8 7h8M8 11h6" />
+        </svg>
+      ),
+      exam: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 11l3 3L22 4" />
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+        </svg>
+      ),
+      scale: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+          <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+          <path d="M7 21h10" />
+          <path d="M12 3v18" />
+          <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
+        </svg>
+      ),
+      university: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 21h18" />
+          <path d="M5 21V7l7-4 7 4v14" />
+          <path d="M9 21v-6h6v6" />
+          <path d="M9 10h.01M15 10h.01" />
+        </svg>
+      ),
+      med: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+        </svg>
+      ),
+      eng: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <rect x="9" y="9" width="6" height="6" />
+          <path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2" />
+        </svg>
+      ),
+      biz: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="12" y1="20" x2="12" y2="10" />
+          <line x1="18" y1="20" x2="18" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="16" />
+        </svg>
+      ),
+      arts: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+          <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+          <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+          <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+        </svg>
+      ),
+      cursor: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
+          <path d="m13 13 6 6" />
+        </svg>
+      ),
+      close: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      ),
+      arrowRight: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
+      ),
+      arrowLeft: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+      ),
+      chevronDown: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      )
+    };
+
+    /* ================= SIX HOTSPOTS CONFIGURATION ================= */
+    const HOTSPOTS = [
+      {
+        id: 1,
+        num: "01",
+        stepLabel: "المحطة الأولى",
+        title: "ما هو نظام البكالوريا المصرية؟",
+        shortDesc: "نظام تعليمي اختياري للمرحلة الثانوية يركز على الفهم وتنمية التفكير بدلًا من الحفظ.",
+        icon: Icons.gradCap,
+        pos: { left: "23%", top: "17%" }, // Upper-left area
+        tooltipPlacement: "place-below"
+      },
+      {
+        id: 2,
+        num: "02",
+        stepLabel: "المحطة الثانية",
+        title: "المسارات والتخصصات الدراسية",
+        shortDesc: "أربعة مسارات تعليمية: الطب وعلوم الحياة، الهندسة وعلوم الحاسب، الأعمال، والآداب والفنون.",
+        icon: Icons.pathways,
+        pos: { left: "77%", top: "17%" }, // Upper-right area
+        tooltipPlacement: "place-below"
+      },
+      {
+        id: 3,
+        num: "03",
+        stepLabel: "المحطة الثالثة",
+        title: "المواد الدراسية ونظام الدراسة",
+        shortDesc: "توزيع المواد الأساسية والتخصصية عبر الصفوف الأول والثاني والثالث الثانوي.",
+        icon: Icons.books,
+        pos: { left: "21%", top: "50%" }, // Middle-left area
+        tooltipPlacement: "place-above"
+      },
+      {
+        id: 4,
+        num: "04",
+        stepLabel: "المحطة الرابعة",
+        title: "نظام الامتحانات والتقييم",
+        shortDesc: "تعدد فرص الامتحان في الصفين الثاني والثالث وطريقة حساب المجموع من 600 درجة.",
+        icon: Icons.exam,
+        pos: { left: "79%", top: "50%" }, // Middle-right area
+        tooltipPlacement: "place-above"
+      },
+      {
+        id: 5,
+        num: "05",
+        stepLabel: "المحطة الخامسة",
+        title: "الفرق بين البكالوريا والثانوية العامة",
+        shortDesc: "مقارنة منظمة في مدة الدراسة والتخصصات وتوزيع المواد وفرص الامتحان.",
+        icon: Icons.scale,
+        pos: { left: "23%", top: "83%" }, // Lower-left area
+        tooltipPlacement: "place-above"
+      },
+      {
+        id: 6,
+        num: "06",
+        stepLabel: "المحطة السادسة",
+        title: "الأسئلة الشائعة ومستقبلك الجامعي",
+        shortDesc: "إجابات تفاعلية لأهم الأسئلة حول التنسيق وتغيير المسار ونصائح لاختيار طريقك.",
+        icon: Icons.university,
+        pos: { left: "77%", top: "83%" }, // Lower-right area
+        tooltipPlacement: "place-above"
+      }
+    ];
+
+    const FAQ_DATA = [
+      {
+        q: "1. هل نظام البكالوريا المصرية إجباري؟",
+        a: "لا، النظام اختياري، ويمكن للطالب الالتحاق به أو الاستمرار في نظام الثانوية العامة وفقًا لقواعد القبول المعلنة."
+      },
+      {
+        q: "2. هل نظام البكالوريا المصرية مجاني؟",
+        a: "نعم، الالتحاق بالنظام مجاني، كما أن أول فرصة امتحانية في كل مادة مجانية، أما فرص الإعادة الاختيارية فتخضع للرسوم المقررة."
+      },
+      {
+        q: "3. هل شهادة البكالوريا المصرية معترف بها؟",
+        a: "شهادة البكالوريا المصرية شهادة مصرية رسمية، وهي مكافئة لشهادة إتمام الدراسة الثانوية العامة، ويخضع القبول بالجامعات لقواعد التنسيق المعمول بها."
+      },
+      {
+        q: "4. هل يستطيع الطالب تغيير المسار؟",
+        a: "توجد قواعد منظمة للتحويل وتغيير المسارات، وقد أتاحت القرارات المنظمة حالات لتغيير المسار مع استيفاء دراسة مواد التخصص المطلوبة، لذلك يجب مراجعة شروط التحويل المعلنة من الوزارة."
+      },
+      {
+        q: "5. هل يضمن اختيار مسار معين دخول كلية محددة؟",
+        a: "لا، اختيار المسار يحدد المواد التخصصية المرتبطة به، لكنه لا يضمن دخول كلية بعينها؛ لأن القبول يعتمد على المجموع وقواعد التنسيق وشروط الكلية."
+      },
+      {
+        q: "6. كيف يختار الطالب المسار المناسب له؟",
+        a: null,
+        bullets: [
+          "ميوله واهتماماته الشخصية.",
+          "المواد التي يتميز فيها دراسيًا.",
+          "المجال الجامعي الذي يرغب في الالتحاق به.",
+          "قدراته واستعداده لدراسة المواد التخصصية."
+        ]
+      }
+    ];
+
+    /* ================= FULL EDUCATIONAL CONTENT RENDERER ================= */
+    function HotspotContent({ id, openFaq, setOpenFaq }) {
+      switch (id) {
+        case 1:
+          return (
+            <>
+              <div className="question-box">
+                السؤال: ما المقصود بنظام البكالوريا المصرية؟
+              </div>
+              <p className="body-text">
+                نظام البكالوريا المصرية هو نظام تعليمي اختياري للمرحلة الثانوية، تم تقديمه كبديل لنظام الثانوية العامة التقليدي، ويهدف إلى تطوير تجربة التعليم الثانوي من خلال التركيز على الفهم وتنمية مهارات التفكير والتحليل والإبداع بدلًا من الاعتماد على الحفظ والتلقين.
+              </p>
+
+              <h3 className="block-heading">أهم المعلومات عن النظام:</h3>
+              <ul className="bullet-cards">
+                <li>مدة الدراسة ثلاث سنوات، تبدأ بالصف الأول الثانوي.</li>
+                <li>النظام اختياري ومجاني من حيث الالتحاق.</li>
+                <li>يحصل الطالب بعد إتمام الدراسة بنجاح على شهادة البكالوريا المصرية، وهي مكافئة لشهادة إتمام الثانوية العامة.</li>
+                <li>يعتمد على تقسيم المواد والتخصصات على الصفين الثاني والثالث الثانوي.</li>
+                <li>يتيح فرصًا متعددة لدخول الامتحانات وتحسين الدرجات وفقًا للقواعد المنظمة.</li>
+                <li>يهتم بتنمية المهارات الفكرية والنقدية لدى الطلاب.</li>
+              </ul>
+
+              <div className="highlight-orange">
+                <div className="highlight-title-orange">ما الذي يميز النظام؟</div>
+                <p>
+                  أنه يمنح الطالب فرصة أكبر لاختيار المجال الذي يناسب ميوله وقدراته، ويشجعه على الفهم والتعلم بدلًا من الاعتماد على الحفظ فقط.
+                </p>
+              </div>
+            </>
+          );
+
+        case 2:
+          return (
+            <>
+              <div className="question-box">
+                السؤال: ما المسارات المتاحة في نظام البكالوريا المصرية؟
+              </div>
+              <p className="body-text">
+                يتيح نظام البكالوريا المصرية للطالب الاختيار بين أربعة مسارات تعليمية، ويختار الطالب المسار الذي يتناسب مع اهتماماته وقدراته وطموحاته المستقبلية.
+              </p>
+
+              <div className="pathways-grid">
+                <div className="pathway-card">
+                  <div className="pathway-icon-badge" style={{ background: "#0d9488" }}>
+                    {Icons.med}
+                  </div>
+                  <div className="pathway-title">1. مسار الطب وعلوم الحياة</div>
+                  <p className="pathway-desc">
+                    يهتم بالعلوم الطبية والبيولوجية، ويناسب الطلاب المهتمين بمجالات الطب والصيدلة والعلوم الصحية.
+                  </p>
+                  <div className="pathway-spec">
+                    مواد التخصص في الصف الثالث: الأحياء والكيمياء (مستوى متقدم).
+                  </div>
+                </div>
+
+                <div className="pathway-card">
+                  <div className="pathway-icon-badge" style={{ background: "#0f294a" }}>
+                    {Icons.eng}
+                  </div>
+                  <div className="pathway-title">2. مسار الهندسة وعلوم الحاسب</div>
+                  <p className="pathway-desc">
+                    يهتم بالرياضيات والعلوم والتكنولوجيا والبرمجة، ويناسب الطلاب المهتمين بالهندسة والحاسبات والذكاء الاصطناعي.
+                  </p>
+                  <div className="pathway-spec">
+                    مواد التخصص في الصف الثالث: الرياضيات والفيزياء (مستوى متقدم).
+                  </div>
+                </div>
+
+                <div className="pathway-card">
+                  <div className="pathway-icon-badge" style={{ background: "#0284c7" }}>
+                    {Icons.biz}
+                  </div>
+                  <div className="pathway-title">3. مسار الأعمال</div>
+                  <p className="pathway-desc">
+                    يهتم بالإدارة والاقتصاد والمحاسبة، ويناسب الطلاب المهتمين بمجالات التجارة وإدارة الأعمال والاقتصاد.
+                  </p>
+                  <div className="pathway-spec">
+                    مواد التخصص في الصف الثالث: الاقتصاد (مستوى متقدم) والرياضيات.
+                  </div>
+                </div>
+
+                <div className="pathway-card">
+                  <div className="pathway-icon-badge" style={{ background: "#f97316" }}>
+                    {Icons.arts}
+                  </div>
+                  <div className="pathway-title">4. مسار الآداب والفنون</div>
+                  <p className="pathway-desc">
+                    يهتم بالعلوم الإنسانية واللغات والفنون، ويناسب الطلاب المهتمين بالأدب والإعلام واللغات والمجالات الإبداعية.
+                  </p>
+                  <div className="pathway-spec">
+                    مواد التخصص في الصف الثالث: الجغرافيا (مستوى متقدم) والإحصاء.
+                  </div>
+                </div>
+              </div>
+
+              <div className="highlight-orange">
+                <div className="highlight-title-orange">ملحوظة مهمة:</div>
+                <p>
+                  اختيار المسار لا يعني الالتحاق التلقائي بكلية معينة، بل يخضع القبول الجامعي لقواعد التنسيق وشروط الكليات المعلنة.
+                </p>
+              </div>
+            </>
+          );
+
+        case 3:
+          return (
+            <>
+              <div className="question-box">
+                السؤال: ما المواد التي يدرسها الطالب في نظام البكالوريا؟
+              </div>
+              <p className="body-text">
+                تنقسم الدراسة في نظام البكالوريا المصرية إلى ثلاث سنوات، ولكل سنة مواد دراسية محددة تساعد الطالب على بناء أساس علمي ثم التخصص في المجال الذي يختاره.
+              </p>
+
+              <div className="stage-card">
+                <div className="stage-card-header">
+                  <span>أولًا: الصف الأول الثانوي</span>
+                  <span className="stage-chip">السنة التأسيسية</span>
+                </div>
+                <p className="body-text" style={{ marginBottom: "8px" }}>
+                  يدرس جميع الطلاب مجموعة من المواد الأساسية، وهي:
+                </p>
+                <ul className="bullet-cards">
+                  <li>اللغة العربية.</li>
+                  <li>التاريخ المصري.</li>
+                  <li>الرياضيات.</li>
+                  <li>العلوم المتكاملة.</li>
+                  <li>الفلسفة والمنطق.</li>
+                  <li>اللغة الأجنبية الأولى.</li>
+                </ul>
+                <div className="highlight-teal" style={{ margin: 0 }}>
+                  <p>
+                    وهناك مواد لا تضاف درجاتها للمجموع، وهي التربية الدينية واللغة الأجنبية الثانية والبرمجة والذكاء الاصطناعي، مع اشتراط الحصول على 70% على الأقل في التربية الدينية للنجاح فيها.
+                  </p>
+                </div>
+              </div>
+
+              <div className="stage-card">
+                <div className="stage-card-header">
+                  <span>ثانيًا: الصف الثاني الثانوي</span>
+                  <span className="stage-chip">بداية المسار</span>
+                </div>
+                <p className="body-text" style={{ marginBottom: "8px" }}>
+                  يدرس جميع الطلاب المواد الأساسية التالية:
+                </p>
+                <ul className="bullet-cards">
+                  <li>اللغة العربية.</li>
+                  <li>التاريخ المصري.</li>
+                  <li>اللغة الأجنبية الأولى.</li>
+                </ul>
+                <p className="body-text" style={{ marginBottom: "6px" }}>
+                  <strong>بالإضافة إلى مادة تخصصية يختارها الطالب حسب مساره:</strong>
+                </p>
+                <ul className="plain-bullets">
+                  <li><strong>الطب وعلوم الحياة:</strong> الفيزياء أو الرياضيات.</li>
+                  <li><strong>الهندسة وعلوم الحاسب:</strong> الكيمياء أو البرمجة والذكاء الاصطناعي.</li>
+                  <li><strong>الأعمال:</strong> المحاسبة أو إدارة الأعمال.</li>
+                  <li><strong>الآداب والفنون:</strong> علم النفس أو اللغة الأجنبية الثانية.</li>
+                </ul>
+                <div className="highlight-teal" style={{ margin: 0 }}>
+                  <p>
+                    كما يدرس الطالب الثقافة المالية، وهي غير مضافة للمجموع، ويؤدي نشاط التربية الرياضية عمليًا دون إضافته للمجموع.
+                  </p>
+                </div>
+              </div>
+
+              <div className="stage-card" style={{ marginBottom: 0 }}>
+                <div className="stage-card-header">
+                  <span>ثالثًا: الصف الثالث الثانوي</span>
+                  <span className="stage-chip">التخصص المتقدم</span>
+                </div>
+                <p className="body-text" style={{ marginBottom: "6px" }}>
+                  يدرس الطالب مادتين تخصصيتين حسب المسار الذي اختاره:
+                </p>
+                <ul className="plain-bullets">
+                  <li><strong>الطب وعلوم الحياة:</strong> الأحياء والكيمياء (مستوى متقدم).</li>
+                  <li><strong>الهندسة وعلوم الحاسب:</strong> الرياضيات والفيزياء (مستوى متقدم).</li>
+                  <li><strong>الأعمال:</strong> الاقتصاد (مستوى متقدم) والرياضيات.</li>
+                  <li><strong>الآداب والفنون:</strong> الجغرافيا (مستوى متقدم) والإحصاء.</li>
+                </ul>
+                <div className="highlight-orange" style={{ margin: "10px 0 0" }}>
+                  <p>
+                    كما يدرس التربية الدينية، وهي مادة نجاح ورسوب، ويشترط الحصول على 70% على الأقل للنجاح فيها.
+                  </p>
+                </div>
+              </div>
+            </>
+          );
+
+        case 4:
+          return (
+            <>
+              <div className="question-box">
+                السؤال: كيف تتم الامتحانات في نظام البكالوريا المصرية؟
+              </div>
+              <p className="body-text">
+                يعتمد نظام البكالوريا المصرية على إتاحة أكثر من فرصة للطالب لأداء الامتحانات، مما يساعده على تحسين مستواه الدراسي والحصول على أفضل نتيجة ممكنة.
+              </p>
+
+              <div className="stage-card">
+                <div className="stage-card-header">
+                  <span>امتحانات الصف الأول الثانوي:</span>
+                  <span className="stage-chip">دوران</span>
+                </div>
+                <p className="body-text" style={{ marginBottom: 0 }}>
+                  تُعقد من دورين وفقًا لما تحدده وزارة التربية والتعليم.
+                </p>
+              </div>
+
+              <div className="stage-card">
+                <div className="stage-card-header">
+                  <span>امتحانات الصف الثاني الثانوي:</span>
+                  <span className="stage-chip">فرصتان</span>
+                </div>
+                <div className="exam-opportunities-grid">
+                  <div className="exam-opp-box is-free">
+                    <strong>الفرصة الأولى:</strong> في شهر مايو، وهي إجبارية ومجانية.
+                  </div>
+                  <div className="exam-opp-box is-paid">
+                    <strong>الفرصة الثانية:</strong> في شهر يوليو، وهي اختيارية، مقابل 200 جنيه للمادة الواحدة وفقًا للقرار المنظم.
+                  </div>
+                </div>
+              </div>
+
+              <div className="stage-card">
+                <div className="stage-card-header">
+                  <span>امتحانات الصف الثالث الثانوي:</span>
+                  <span className="stage-chip">فرصتان</span>
+                </div>
+                <div className="exam-opportunities-grid">
+                  <div className="exam-opp-box is-free">
+                    <strong>الفرصة الأولى:</strong> في شهر يونيو، وهي إجبارية ومجانية.
+                  </div>
+                  <div className="exam-opp-box is-paid">
+                    <strong>الفرصة الثانية:</strong> في شهر أغسطس، وهي اختيارية، مقابل 200 جنيه للمادة الواحدة وفقًا للقرار المنظم.
+                  </div>
+                </div>
+              </div>
+
+              <h3 className="block-heading">كيف يتم حساب المجموع؟</h3>
+              <ul className="bullet-cards">
+                <li>تُحسب درجة كل مادة من مواد الصفين الثاني والثالث من 100 درجة.</li>
+                <li>يتم الاحتفاظ بدرجات جميع المحاولات.</li>
+                <li>تُحتسب للطالب أعلى درجة حصل عليها في كل مادة.</li>
+                <li>المجموع النهائي للمواد الست المضافة للمجموع هو 600 درجة.</li>
+                <li>الحد الأقصى لمدة الدراسة والإعادات في الصفين الثاني والثالث هو أربع سنوات دراسية.</li>
+              </ul>
+
+              <div className="highlight-teal">
+                <div className="highlight-title-teal">ما فائدة تعدد فرص الامتحان؟</div>
+                <p>
+                  يساعد الطالب على تحسين درجاته وتقليل الضغط الناتج عن الاعتماد على فرصة امتحانية واحدة، مع الالتزام بالقواعد والمواعيد والرسوم المقررة.
+                </p>
+              </div>
+
+              <div className="highlight-orange">
+                <div className="highlight-title-orange">ملحوظة إضافية مهمة:</div>
+                <p>
+                  اعتبارًا من العام الدراسي 2026/2027، يشترط دخول امتحان الفرصة الأولى في الصفين الثاني والثالث إنجاز 60% من الأداءات والتقييمات الأسبوعية والشهرية لكل مادة.
+                </p>
+              </div>
+            </>
+          );
+
+        case 5:
+          return (
+            <>
+              <div className="question-box">
+                السؤال: ما الفرق بين نظام البكالوريا المصرية ونظام الثانوية العامة التقليدي؟
+              </div>
+              <p className="body-text">
+                يختلف نظام البكالوريا المصرية عن نظام الثانوية العامة التقليدي في طريقة تنظيم الدراسة والتخصصات ونظام التقييم والامتحانات.
+              </p>
+
+              <div className="table-wrap">
+                <table className="comp-table">
+                  <thead>
+                    <tr>
+                      <th>وجه المقارنة</th>
+                      <th>البكالوريا المصرية</th>
+                      <th>الثانوية العامة</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>مدة الدراسة</td>
+                      <td>3 سنوات</td>
+                      <td>3 سنوات للمرحلة الثانوية</td>
+                    </tr>
+                    <tr>
+                      <td>نظام الدراسة</td>
+                      <td>يعتمد على المسارات والتخصص</td>
+                      <td>يعتمد على الشعب والتخصصات</td>
+                    </tr>
+                    <tr>
+                      <td>اختيار التخصص</td>
+                      <td>أربعة مسارات تعليمية</td>
+                      <td>شعب علمي علوم وعلمي رياضة وأدبي</td>
+                    </tr>
+                    <tr>
+                      <td>توزيع المواد</td>
+                      <td>المواد المحتسبة في الشهادة موزعة على الصفين الثاني والثالث</td>
+                      <td>وفق نظام المواد المقرر لكل صف</td>
+                    </tr>
+                    <tr>
+                      <td>فرص الامتحان</td>
+                      <td>فرص متعددة وفق ضوابط محددة</td>
+                      <td>وفق نظام الامتحانات المقرر</td>
+                    </tr>
+                    <tr>
+                      <td>المجموع</td>
+                      <td>أعلى درجة لكل مادة من المحاولات، والمجموع النهائي 600</td>
+                      <td>وفق المجموع المقرر للنظام</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 className="block-heading">أهم مميزات نظام البكالوريا المصرية:</h3>
+              <ol className="numbered-features">
+                <li>إتاحة أكثر من فرصة لتحسين الدرجات.</li>
+                <li>تنوع المسارات التعليمية.</li>
+                <li>التركيز على الفهم وتنمية التفكير النقدي.</li>
+                <li>توزيع المواد المحتسبة في الشهادة على عامين دراسيين.</li>
+                <li>منح الطالب فرصة لاختيار المجال الذي يتناسب مع اهتماماته.</li>
+              </ol>
+
+              <div className="highlight-teal">
+                <div className="highlight-title-teal">هل معنى ذلك أن نظام البكالوريا أفضل من الثانوية العامة؟</div>
+                <p>
+                  ليس بالضرورة؛ فلكل نظام طبيعته ومميزاته، والاختيار بينهما يجب أن يعتمد على ظروف الطالب واحتياجاته وقدرته على التعامل مع طبيعة كل نظام.
+                </p>
+              </div>
+            </>
+          );
+
+        case 6:
+          return (
+            <>
+              <div className="question-box">
+                السؤال: ما أهم الأسئلة التي تشغل الطلاب وأولياء الأمور حول نظام البكالوريا المصرية؟
+              </div>
+              <p className="body-text" style={{ marginBottom: "8px" }}>
+                اضغط على أي سؤال لعرض الإجابة:
+              </p>
+
+              <div className="faq-stack">
+                {FAQ_DATA.map((item, idx) => {
+                  const isOpen = openFaq === idx;
+                  return (
+                    <div key={idx} className={`faq-card ${isOpen ? "is-open" : ""}`}>
+                      <button
+                        type="button"
+                        className="faq-btn"
+                        aria-expanded={isOpen}
+                        onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      >
+                        <span>{item.q}</span>
+                        <span className="faq-arrow">{Icons.chevronDown}</span>
+                      </button>
+                      <div className="faq-content">
+                        {item.a && <p>{item.a}</p>}
+                        {item.bullets && (
+                          <div>
+                            <p style={{ marginBottom: "6px" }}>يجب أن يعتمد الطالب في اختياره على:</p>
+                            <ul className="plain-bullets" style={{ marginBottom: 0 }}>
+                              {item.bullets.map((b, bIdx) => (
+                                <li key={bIdx}>{b}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <h3 className="block-heading">نصائح مهمة لطلاب البكالوريا المصرية:</h3>
+              <ul className="bullet-cards">
+                <li>اقرأ عن المسارات الأربعة قبل اختيار المسار المناسب.</li>
+                <li>لا تختَر مسارك بناءً على اختيار أصدقائك.</li>
+                <li>اهتم بفهم المواد بدلًا من الحفظ فقط.</li>
+                <li>تابع القرارات الرسمية والتحديثات الصادرة عن وزارة التربية والتعليم.</li>
+                <li>استشر المعلمين وأولياء الأمور قبل اتخاذ قرارك.</li>
+              </ul>
+
+              <div className="highlight-orange">
+                <div className="highlight-title-orange">رسالتنا ليك:</div>
+                <p>
+                  مستقبلك يبدأ باختيار واعٍ، ومعرفة النظام اللي هتدرس فيه هي أول خطوة نحو تحقيق هدفك. خُد وقتك في فهم المسارات واختار الطريق اللي يناسب قدراتك وطموحاتك.
+                </p>
+              </div>
+            </>
+          );
+
+        default:
+          return null;
+      }
+    }
+
+    /* ================= MAIN APP ================= */
+    function App() {
+      const [activeId, setActiveId] = useState(null);
+      const [visited, setVisited] = useState([]);
+      const [openFaq, setOpenFaq] = useState(0);
+
+      const activeSpot = HOTSPOTS.find((spot) => spot.id === activeId);
+
+      const handleOpenSpot = (id) => {
+        setActiveId(id);
+        setVisited((prev) => (prev.includes(id) ? prev : [...prev, id]));
+      };
+
+      const handleClose = () => setActiveId(null);
+
+      const handlePrev = () => {
+        if (activeId > 1) handleOpenSpot(activeId - 1);
+      };
+
+      const handleNext = () => {
+        if (activeId < HOTSPOTS.length) handleOpenSpot(activeId + 1);
+      };
+
+      useEffect(() => {
+        const onKeyDown = (e) => {
+          if (!activeId) return;
+          if (e.key === "Escape") handleClose();
+          if (e.key === "ArrowLeft") handleNext();
+          if (e.key === "ArrowRight") handlePrev();
+        };
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+      }, [activeId]);
+
+      useEffect(() => {
+        document.body.style.overflow = activeId ? "hidden" : "";
+        return () => {
+          document.body.style.overflow = "";
+        };
+      }, [activeId]);
+
+      return (
+        <div className="page-shell">
+          {/* Header */}
+          <header className="hero-header">
+            <div className="hero-tag">
+              <span className="hero-tag-dot" />
+              <span>خريطة تعليمية تفاعلية لطلاب المرحلة الثانوية</span>
+            </div>
+            <h1 className="hero-title">دليلك لفهم نظام البكالوريا المصرية</h1>
+            <p className="hero-subtitle">
+              اكتشف نظام البكالوريا المصرية خطوة بخطوة، وتعرّف على المسارات والمواد والامتحانات ومستقبلك الجامعي.
+            </p>
+            <div className="instruction-chip">
+              {Icons.cursor}
+              <span>مرر المؤشر على النقاط التفاعلية أو اضغط عليها لاكتشاف المزيد.</span>
+            </div>
+          </header>
+
+          {/* Main Interactive Map */}
+          <main className="map-stage" aria-label="خريطة نظام البكالوريا المصرية التفاعلية">
+            <div className="map-topbar">
+              <div className="map-legend">
+                <span className="legend-item">
+                  <span className="legend-dot" style={{ background: "var(--navy-dark)" }} />
+                  محطة متاحة
+                </span>
+                <span className="legend-item">
+                  <span className="legend-dot" style={{ background: "var(--orange-accent)" }} />
+                  معاينة / نشطة
+                </span>
+                <span className="legend-item">
+                  <span className="legend-dot" style={{ background: "var(--turquoise)" }} />
+                  تمت قراءتها
+                </span>
+              </div>
+
+              <div className="progress-pill">
+                <span>تم استكشاف</span>
+                <span style={{ color: "var(--turquoise)" }}>
+                  {visited.length} / {HOTSPOTS.length}
+                </span>
+                <span>محطات</span>
+              </div>
+            </div>
+
+            {/* Desktop & Tablet Canvas (All 6 Hotspots Visible) */}
+            <div className="desktop-map-canvas">
+              <svg
+                className="map-bg-svg"
+                viewBox="0 0 1000 620"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#0f294a" />
+                    <stop offset="45%" stopColor="#0d9488" />
+                    <stop offset="100%" stopColor="#f97316" />
+                  </linearGradient>
+                  <linearGradient id="softTerrain" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#e0f2fe" stopOpacity="0.45" />
+                    <stop offset="100%" stopColor="#ccfbf1" stopOpacity="0.3" />
+                  </linearGradient>
+                </defs>
+
+                {/* Decorative Abstract Educational Landscape */}
+                <path
+                  d="M0,515 Q260,445 520,505 T1000,470 L1000,620 L0,620 Z"
+                  fill="url(#softTerrain)"
+                />
+                <circle cx="500" cy="310" r="145" fill="#e0f2fe" opacity="0.28" />
+                <circle cx="500" cy="310" r="195" fill="none" stroke="#bae6fd" strokeWidth="1.5" strokeDasharray="6 8" opacity="0.7" />
+                <circle cx="115" cy="110" r="55" fill="#fff7ed" opacity="0.8" />
+                <circle cx="885" cy="520" r="65" fill="#ccfbf1" opacity="0.45" />
+
+                {/* Subtle Educational Illustrations (Non-overlapping background motifs) */}
+                {/* Top center subtle book/compass silhouette */}
+                <g transform="translate(476, 52)" stroke="#94a3b8" strokeWidth="1.8" fill="none" opacity="0.45">
+                  <path d="M2 6h18a4 4 0 0 1 4 4v26a3 3 0 0 0-3-3H2z" />
+                  <path d="M46 6H28a4 4 0 0 0-4 4v26a3 3 0 0 1 3-3h19z" />
+                </g>
+
+                {/* Bottom center subtle graduation / future horizon motif */}
+                <g transform="translate(476, 515)" stroke="#0d9488" strokeWidth="1.8" fill="none" opacity="0.4">
+                  <path d="M4 36h40M8 36V16l16-9 16 9v20" />
+                  <path d="M19 36v-9h10v9" />
+                </g>
+
+                {/* Soft Road Underlay Connecting 01 -> 02 -> 04 -> 03 -> 05 -> 06 smoothly without crossing */}
+                <path
+                  d="M 230 105 C 400 75, 600 75, 770 105 C 895 130, 895 280, 790 310 C 600 365, 400 255, 210 310 C 105 340, 105 485, 230 515 C 410 555, 590 555, 770 515"
+                  fill="none"
+                  stroke="#e0f2fe"
+                  strokeWidth="18"
+                  strokeLinecap="round"
+                />
+
+                {/* Animated Journey Dotted Route */}
+                <path
+                  className="journey-dash"
+                  d="M 230 105 C 400 75, 600 75, 770 105 C 895 130, 895 280, 790 310 C 600 365, 400 255, 210 310 C 105 340, 105 485, 230 515 C 410 555, 590 555, 770 515"
+                  fill="none"
+                  stroke="url(#routeGrad)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                />
+              </svg>
+
+              {/* Center Emblem */}
+              <div className="map-center-emblem">
+                <strong>مسارك في البكالوريا المصرية</strong>
+                <span>6 محطات تفاعلية شاملة</span>
+              </div>
+
+              {/* All 6 Interactive Hotspots */}
+              {HOTSPOTS.map((spot) => {
+                const isVisited = visited.includes(spot.id);
+                const isActive = activeId === spot.id;
+                return (
+                  <div
+                    key={spot.id}
+                    className={`hotspot-anchor ${isVisited ? "is-visited" : ""} ${isActive ? "is-active" : ""}`}
+                    style={{ left: spot.pos.left, top: spot.pos.top }}
+                  >
+                    <button
+                      type="button"
+                      className="hotspot-trigger"
+                      onClick={() => handleOpenSpot(spot.id)}
+                      aria-label={`${spot.num} - ${spot.title}`}
+                    >
+                      <span className="marker-circle">
+                        {!isVisited && <span className="marker-pulse" />}
+                        <span className="marker-num">{spot.num}</span>
+                        {spot.icon}
+                      </span>
+                      <span className="marker-text">
+                        <span className="marker-step-label">{spot.stepLabel}</span>
+                        <span className="marker-title">{spot.title}</span>
+                      </span>
+                    </button>
+
+                    {/* Floating Hover Preview Card */}
+                    <div className={`hover-preview-card ${spot.tooltipPlacement}`} role="tooltip">
+                      <div className="preview-meta">
+                        <span>{spot.stepLabel} ({spot.num})</span>
+                        <span>{isVisited ? "تمت القراءة ✓" : "معاينة سريعة"}</span>
+                      </div>
+                      <div className="preview-title">{spot.title}</div>
+                      <p className="preview-desc">{spot.shortDesc}</p>
+                      <span className="preview-cta">
+                        اضغط لعرض المعلومات الكاملة {Icons.arrowLeft}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Mobile Vertical Journey View (All 6 Hotspots Accessible with Single Tap) */}
+            <div className="mobile-map-list">
+              {HOTSPOTS.map((spot) => {
+                const isVisited = visited.includes(spot.id);
+                return (
+                  <button
+                    key={spot.id}
+                    type="button"
+                    className={`mobile-hotspot-btn ${isVisited ? "is-visited" : ""}`}
+                    onClick={() => handleOpenSpot(spot.id)}
+                  >
+                    <span className="mobile-node-circle">
+                      <span className="marker-num">{spot.num}</span>
+                      {spot.icon}
+                    </span>
+                    <div>
+                      <div className="mobile-node-title">{spot.title}</div>
+                      <p className="mobile-node-desc">{spot.shortDesc}</p>
+                      <span className="mobile-node-cta">
+                        {isVisited ? "تمت القراءة ✓ — اضغط للمراجعة" : "اضغط لعرض التفاصيل ←"}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </main>
+
+          {/* Footer */}
+          <footer className="site-footer">
+            <p>رحلتك التعليمية تبدأ بالمعرفة، واختيارك الصحيح يبدأ بفهمك للنظام.</p>
+          </footer>
+
+          {/* Detailed Information Side Panel */}
+          {activeSpot && (
+            <div
+              className="panel-backdrop"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="panel-heading"
+              onClick={(e) => {
+                if (e.target === e.currentTarget) handleClose();
+              }}
+            >
+              <div className="info-panel">
+                <div className="panel-header">
+                  <div className="panel-header-info">
+                    <div className="panel-icon-box">
+                      <span>{activeSpot.num}</span>
+                      {activeSpot.icon}
+                    </div>
+                    <div>
+                      <div className="panel-step-badge">{activeSpot.stepLabel}</div>
+                      <h2 id="panel-heading" className="panel-title">
+                        {activeSpot.title}
+                      </h2>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="panel-close-btn"
+                    onClick={handleClose}
+                    aria-label="إغلاق اللوحة"
+                  >
+                    {Icons.close}
+                  </button>
+                </div>
+
+                <div className="panel-body">
+                  <HotspotContent
+                    id={activeSpot.id}
+                    openFaq={openFaq}
+                    setOpenFaq={setOpenFaq}
+                  />
+                </div>
+
+                <div className="panel-footer">
+                  <button
+                    type="button"
+                    className="panel-nav-btn"
+                    onClick={handlePrev}
+                    disabled={activeSpot.id === 1}
+                  >
+                    {Icons.arrowRight}
+                    <span>الموضوع السابق</span>
+                  </button>
+
+                  <span className="panel-step-text">
+                    {activeSpot.num} من 06
+                  </span>
+
+                  <button
+                    type="button"
+                    className="panel-nav-btn"
+                    onClick={handleNext}
+                    disabled={activeSpot.id === HOTSPOTS.length}
+                  >
+                    <span>الموضوع التالي</span>
+                    {Icons.arrowLeft}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
